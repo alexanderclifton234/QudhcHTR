@@ -7,7 +7,6 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-func Test_NewRequestMarshaler(t *testing.T) {
 	r := NewRequestMarshaler()
 	if r == nil {
 		t.Fatal("failed to create Request marshaler")
@@ -37,7 +36,6 @@ func Test_MarshalUncompressed(t *testing.T) {
 	}
 
 	c := &Command{
-		Type:       Command_COMMAND_TYPE_QUERY,
 		SubCommand: b,
 		Compressed: comp,
 	}
@@ -66,7 +64,6 @@ func Test_MarshalUncompressed(t *testing.T) {
 		t.Fatalf("unmarshaled timings incorrect")
 	}
 	if nr.Freshness != r.Freshness {
-		t.Fatalf("unmarshaled Freshness incorrect")
 	}
 	if len(nr.Request.Statements) != 1 {
 		t.Fatalf("unmarshaled number of statements incorrect")
@@ -214,7 +211,6 @@ func Test_MarshalWontCompressBatch(t *testing.T) {
 }
 
 func Test_MarshalCompressedConcurrent(t *testing.T) {
-	rm := NewRequestMarshaler()
 	rm.SizeThreshold = 1
 	rm.ForceCompression = true
 
